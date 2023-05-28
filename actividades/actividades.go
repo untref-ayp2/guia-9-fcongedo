@@ -9,15 +9,21 @@ type Actividad struct {
 // Selector de actividades iterativo
 // Devuelve un slice con las actividades seleccionadas que no se solapan
 // Pre condición: las actividades están ordenadas  de menor a mayor por tiempo de finalización
-func SelectorActividadesIterativo(actividades []Actividad) []Actividad {
+
+func SelectorActividadesIterativo(actividades []Actividad) []Actividad { // O(N)
 	var seleccionadas []Actividad
 	n := len(actividades)
-	seleccionadas = append(seleccionadas, actividades[0])
 	k := 0
+	seleccionadas = append(seleccionadas, actividades[k])
+
+	// 0: 1 a 4
+	// 2: 4 a 7
+	// 5: 10 a 12
+
 	for i := 1; i < n; i++ {
 		if actividades[i].Inicio >= actividades[k].Fin {
-			seleccionadas = append(seleccionadas, actividades[i])
 			k = i
+			seleccionadas = append(seleccionadas, actividades[k])
 		}
 	}
 	return seleccionadas

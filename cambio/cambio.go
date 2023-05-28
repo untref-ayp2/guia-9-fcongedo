@@ -6,8 +6,10 @@ package cambio
 
 func Cambiar(cantidad int) map[int]int {
 	billetes := []int{1000, 500, 200, 100, 50, 20, 10, 5, 2, 1}
+	// billetes -> ordenarlo de mayor a menor
 	cambio := make(map[int]int)
 	for _, denominacion := range billetes {
+		// 3500 % 1000 = 500
 		if cantidad >= denominacion {
 			cambio[denominacion] = cantidad / denominacion
 			cantidad %= denominacion

@@ -1,5 +1,7 @@
 package ejercicios
 
+import "errors"
+
 type Farolas struct {
 	Posicion  int
 	Radio     int
@@ -19,5 +21,30 @@ type Farolas struct {
 // El arreglo de farolas y puntos está ordenado por posicion de menor a mayor.
 // Paso greedy: Dado un punto x, encender la farola más a la derecha que pueda iluminarlo.
 func EncenderFarolas(farolas []Farolas, x []int) ([]Farolas, error) {
-	panic("No implementado")
+	encendidas := make([]Farolas, 0)
+
+	for _, punto := range x {
+		// Buscar la farola más a la derecha que pueda iluminar el punto actual
+		farolaIdx := -1
+
+		for i := len(farolas) - 1; i >= 0; i-- {
+			if farolas[i].Posicion-farolas[i].Radio <= punto {
+				farolaIdx = i
+				break
+			}
+		}
+
+		if farolaIdx == -1 {
+			// No se encontró una farola que pueda iluminar el punto actual
+			return nil, errors.New("No es posible iluminar todos los puntos")
+		}
+
+		// Encender la farola seleccionada si aún no está encendida
+		if !farolas[farolaIdx].Encendida {
+			farolas[farolaIdx].Encendida = true
+			encendidas = append(encendidas, farolas[farolaIdx])
+		}
+	}
+
+	return encendidas, nil
 }

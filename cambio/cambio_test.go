@@ -32,3 +32,20 @@ func TestCambio(t *testing.T) {
 	}
 	fmt.Println(c)
 }
+
+func TestCambio2(t *testing.T) {
+	cantidad := 3528
+	cbio := map[int]int{
+		1000: 3, // 3000
+		500:  1, // +400
+		20:   1, //  +20
+		5:    1, //   +5
+		2:    1, //   +2
+		1:    1, //   +1
+	}
+	c := Cambiar(cantidad)
+	if !equal(c, cbio) {
+		t.Errorf("cambio(%d) = %v, want %v", cantidad, c, cbio)
+	}
+	fmt.Println(c)
+}
